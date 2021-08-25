@@ -1,3 +1,5 @@
+import { ProductConfigurator } from "./configurator";
+
 export class Item {
     name: string;
     sellIn: number;
@@ -17,7 +19,17 @@ export class GildedRose {
         this.items = items;
     }
 
+    setProductConfiguration(i: Item) {
+        return ProductConfigurator.productConfiguration(i).configure()
+    }
+
     updateQuality() {
+        this.items = this.items
+                        .map((i: Item) => this.setProductConfiguration(i))
+                        .map(i => i as Item)
+        return this.items
+        /**
+         * TODO: Remove comment block if not necessary
         for (let i = 0; i < this.items.length; i++) {
             if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
                 if (this.items[i].quality > 0) {
@@ -64,6 +76,6 @@ export class GildedRose {
             }
         }
 
-        return this.items;
+        return this.items; */
     }
 }
